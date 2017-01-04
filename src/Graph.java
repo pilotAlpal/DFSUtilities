@@ -74,8 +74,7 @@ public class Graph {
 		int time=0;
 		for(int i=0;i<nV;i++){
 			if (dfsG.isWhite(i))
-				time=dfsVisit(dfsG,i,time);
-			
+				time=dfsVisit(dfsG,i,time);			
 		}
 		return dfsG;
 	}
@@ -120,7 +119,6 @@ public class Graph {
 				t=dfsVisit4strConn(dfsI,v,t,nuevaComp);
 				componentes.add(nuevaComp);
 			}
-			
 		}
 		return componentes;
 	}
@@ -139,10 +137,17 @@ public class Graph {
 		t++;
 		dfsI.discover(v, t);
 		ListIterator<Integer> uIt=aristas[v].listIterator();
-		while(uIt.hasNext()){
+		while(uIt.hasNext()&&!dfsI.isRed(v)){
 			int u=uIt.next();
 			if (dfsI.isWhite(u))
 				t=dfsVisit4strConn(dfsI, u, t,nuevaComp);
+			else if(dfsI.isGray(u)){
+				t++;
+				dfsI.markLoop(v, t);
+				t++;
+				dfsI.markLoop(u, t);
+				return t;
+			}
 		}
 		t++;
 		dfsI.finish(v,t);

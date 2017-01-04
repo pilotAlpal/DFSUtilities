@@ -47,6 +47,14 @@ public class DFSInfo {
 	public LinkedList<Integer> getFinished(){
 		return finished;
 	}
+
+	public boolean isRed(int v) {
+		return vI[v].isRed();
+	}
+	
+	public void markLoop(int v,int time){
+		vI[v].setLooped(time);
+	}
 	
 	
 	

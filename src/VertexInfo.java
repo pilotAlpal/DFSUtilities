@@ -32,4 +32,12 @@ public class VertexInfo {
 		finishingT=time;
 	}
 
+	public boolean isRed() {
+		return color.isRed();
+	}
+	public void setLooped(int time){
+		color=color.Red;
+		finishingT=time;
+	}
+
 }

@@ -1,3 +1,6 @@
+import java.sql.Date;
+import java.sql.Time;
+import java.util.Calendar;
 import java.util.LinkedList;
 import java.util.ListIterator;
 /**
@@ -21,6 +24,7 @@ public class Solver {
 		  fuertemente conexas (cada una es un conjunto de v´ertices)
 	 */
 	public void solve(){
+		long tIni=Calendar.getInstance().getTimeInMillis();
 		Graph grafo=new Graph(aristas);
 		DFSInfo dfsG=grafo.dfs();
 		LinkedList<Integer> terminados=dfsG.getFinished();
@@ -45,6 +49,8 @@ public class Solver {
 
 			}
 		}
+		long tFin=Calendar.getInstance().getTimeInMillis();
+		System.out.println("Tiempo transcurrido: "+(tFin-tIni));
 			
 	}
 }
