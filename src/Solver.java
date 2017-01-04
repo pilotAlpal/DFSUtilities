@@ -50,7 +50,7 @@ public class Solver {
 			}
 		}
 		long tFin=Calendar.getInstance().getTimeInMillis();
-		System.out.println("Tiempo transcurrido: "+(tFin-tIni));
+		System.out.println("Tiempo transcurrido(en ms)"+(tFin-tIni));
 			
 	}
 }
