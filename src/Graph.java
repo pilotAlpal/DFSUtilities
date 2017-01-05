@@ -1,5 +1,6 @@
 import java.util.LinkedList;
 import java.util.ListIterator;
+import java.util.Random;
 
 /**
  * Estos algoritmos estan basados en los ejemplos y esquemas del libro de Thomas H.Cormen Capitulo 22
@@ -10,6 +11,10 @@ import java.util.ListIterator;
 public class Graph {
 	private LinkedList<Integer>[] aristas;
 	
+	public LinkedList<Integer>[] getAristas() {
+		return aristas;
+	}
+
 	/**
 	 * Constructor de la clase
 	 * @param l aristas del grafo
@@ -152,6 +157,24 @@ public class Graph {
 		t++;
 		dfsI.finish(v,t);
 		return t;
+	}
+	
+	public static Graph grafoAleatorio(int v,int a){
+		LinkedList<Integer>[] ars=new LinkedList[v];
+		int aristasCreadas=0;
+		for(int i=0;i<v;i++){
+			ars[i]=new LinkedList<>();
+		}
+		while(aristasCreadas<a){
+			Random r=new Random();
+			int nA1=r.nextInt(v);
+			int nA2=r.nextInt(v);
+			if(!ars[nA1].contains(nA2)){
+				ars[nA1].add(nA2);
+				aristasCreadas++;
+			}
+		}
+		return new Graph(ars);
 	}
 	
 }

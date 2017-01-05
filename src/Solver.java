@@ -1,3 +1,4 @@
+import java.io.PrintStream;
 import java.sql.Date;
 import java.sql.Time;
 import java.util.Calendar;
@@ -22,35 +23,41 @@ public class Solver {
 		 posible, los puede listar en cualquiera de ellos
 	 	 En caso de ser c´ıclico, ha de listar sus componentes
 		  fuertemente conexas (cada una es un conjunto de v´ertices)
+	 * @param nAs 
+	 * @param nVs 
 	 */
-	public void solve(){
+	public void solve(PrintStream ps, int nVs, int nAs) {
 		long tIni=Calendar.getInstance().getTimeInMillis();
+		ps.println("Grafo con "+nVs+" vertices y "+nAs+" aristas.");
 		Graph grafo=new Graph(aristas);
 		DFSInfo dfsG=grafo.dfs();
 		LinkedList<Integer> terminados=dfsG.getFinished();
 		if(!dfsG.isCyclic()){
-			System.out.println("Grafo aciclico");	
+			ps.println("Grafo aciclico");	
 			ListIterator<Integer> it=terminados.listIterator();
 			while(it.hasNext())
-				System.out.println("->"+it.next());
+				ps.println("->"+it.next());
 		}
 		else{
 			Graph grafoT=grafo.traspose();
 			LinkedList<LinkedList<Integer>> componentes=grafoT.stronglyConnected(terminados);
-			System.out.println("Grafo ciclico");
+			ps.println("Grafo ciclico");
 			ListIterator<LinkedList<Integer>> itComps=componentes.listIterator();
 			int nComps=0;
 			while(itComps.hasNext()){
 				nComps++;
-				System.out.println("Componente "+nComps+"-esima:");
+				ps.println("Componente "+nComps+"-esima:");
 				ListIterator<Integer> itNtC=itComps.next().listIterator();
 				while(itNtC.hasNext())
-					System.out.println("->"+itNtC.next());
+					ps.println("->"+itNtC.next());
 
 			}
 		}
 		long tFin=Calendar.getInstance().getTimeInMillis();
-		System.out.println("Tiempo transcurrido(en ms)"+(tFin-tIni));
-			
+		ps.println("Tiempo transcurrido(en ms)"+(tFin-tIni));
+	}
+	
+	public void solve(int nVertices, int tArs){
+		solve(System.out,nVertices,tArs);
 	}
 }
